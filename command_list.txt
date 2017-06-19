@@ -1,0 +1,3 @@
+start - hello there
+location - show current configured location
+status - show current weather
