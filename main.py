@@ -14,40 +14,40 @@ import polling
 
 def start(bot, update):
     # for personality
-    if update.message.chat_id != 389135227:
+    if update.message.chat_id != user_id:
         return
     bot.send_message(chat_id=update.message.chat_id, text="Hello, my friend!")
 
 # just test
 def caps(bot, update, args):
     # for personality
-    if update.message.chat_id != 389135227:
+    if update.message.chat_id != user_id:
         return
     text_caps = ' '.join(args).upper()
     bot.send_message(chat_id=update.message.chat_id, text=text_caps)
 
 def status(bot, update):
     # for personality
-    if update.message.chat_id != 389135227:
+    if update.message.chat_id != user_id:
         return
     bot.send_message(chat_id=update.message.chat_id, text=weather.get_weather())
 
 def location(bot, update):
     # for personality
-    if update.message.chat_id != 389135227:
+    if update.message.chat_id != user_id:
         return
     bot.send_message(chat_id=update.message.chat_id,
-                    text=f"Current Location:\n { settings.data['lng'] },{ settings.data['lat'] }")
+                    text=f"Current Location:\n {settings.data['lng']},{settings.data['lat']}")
 
 def set_location(bot, update):
     # for personality
-    if update.message.chat_id != 389135227:
+    if update.message.chat_id != user_id:
         return
     print(update.message.location)
     location = update.message.location
     settings.update_location(location.longitude, location.latitude)
     bot.send_message(chat_id=update.message.chat_id,
-                    text=f"Location Confirmed:\n { location.longitude },{ location.latitude }")
+                    text=f"Location Confirmed:\n {location.longitude},{location.latitude}")
     bot.send_message(chat_id=update.message.chat_id, text=weather.get_weather())
 
 def main():
@@ -81,8 +81,10 @@ def main():
 
     updater.start_polling()
     polling.start()
-
+    
+# polling module need this
 token_key = os.getenv('TELEGRAM_BOT_TOKEN_KEY')
+user_id = 389135227
 if token_key is None:
     print('Need Configure Environment Variable: TELEGRAM_BOT_TOKEN_KEY')
     exit()
