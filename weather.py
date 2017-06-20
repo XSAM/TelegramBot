@@ -6,11 +6,8 @@ from urllib.parse import urlencode, quote_plus
 
 import settings
 
-def get_weather_with_location(lng, lat):
-    now = str(datetime.datetime.now())
-    print(f'{now}: get_weather')
-
-    # get weather data from yahoo
+# get weather data from yahoo
+def get_weather_description_with_yahoo(lng, lat):
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
     yql_query = f'select * from weather.forecast where woeid in (select woeid from geo.places where text="({lat},{lng})")'
     yql_url = baseurl + urlencode({'q':yql_query}) + "&format=json"
@@ -28,6 +25,31 @@ def get_weather_with_location(lng, lat):
         print(result_json)
 
     description = result_json['query']['results']['channel']['item']['forecast'][0]['text']
+    return description
+
+# get weather data from dark sky
+def get_weather_description_with_darksky(lng, lat):
+        baseurl = f"https://api.darksky.net/forecast/0974760b3c252cd3940907222d7dd041/{lat},{lng}"
+        print(baseurl)
+        api_data = requests.get(url=baseurl)
+        result_json = api_data.json()
+        print(result_json)
+
+        while(result_json['currently'] is None):
+            time.sleep(5)
+            print("Refetch data")
+            api_data = requests.get(url=baseurl)
+            result_json = api_data.json()
+            print(result_json)
+
+        description = result_json['hourly']['data'][0]['summary']
+        return description
+
+def get_weather_with_location(lng, lat):
+    now = str(datetime.datetime.now())
+    print(f'{now}: get_weather')
+
+    description = get_weather_description_with_darksky(lng, lat)
     print(f'get_weather_with_location() - description: {description}')
     return description
 
