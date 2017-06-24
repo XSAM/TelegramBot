@@ -68,7 +68,8 @@ def main():
     location_handler = CommandHandler('location', location);
     set_location_handler = MessageHandler(Filters.location, set_location)
 
-    updater = Updater(bot = polling.bot)
+    #updater = Updater(bot = polling.bot)
+    updater = Updater(token = token_key)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(caps_handler)
