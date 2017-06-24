@@ -13,7 +13,6 @@ def init():
 
 def loop_thread():
     while 'True':
-        global bot
         now = str(datetime.datetime.now())
         print(f'{now}: loop_thread awake')
         result = weather.analyse_weather()

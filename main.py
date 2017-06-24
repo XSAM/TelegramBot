@@ -62,16 +62,13 @@ def main():
     # ready for polling
     polling.init()
 
-    global bot
-    bot = Bot(token = token_key)
-
     start_handler = CommandHandler('start', start);
     caps_handler = CommandHandler('caps', caps, pass_args=True)
     status_handler = CommandHandler('status', status);
     location_handler = CommandHandler('location', location);
     set_location_handler = MessageHandler(Filters.location, set_location)
 
-    updater = Updater(token = token_key)
+    updater = Updater(bot = polling.bot)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(caps_handler)
@@ -81,7 +78,7 @@ def main():
 
     updater.start_polling()
     polling.start()
-    
+
 # polling module need this
 token_key = os.getenv('TELEGRAM_BOT_TOKEN_KEY')
 user_id = 389135227

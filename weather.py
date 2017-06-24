@@ -15,7 +15,8 @@ def get_weather_description_with_yahoo(lng, lat):
     api_data = requests.get(url=yql_url)
     #print(api_data.text)
     result_json = api_data.json()
-    print(result_json)
+    print("fetch weather info successed")
+    #print(result_json)
 
     while(result_json['query']['results'] is None):
         time.sleep(5)
@@ -29,21 +30,22 @@ def get_weather_description_with_yahoo(lng, lat):
 
 # get weather data from dark sky
 def get_weather_description_with_darksky(lng, lat):
-        baseurl = f"https://api.darksky.net/forecast/0974760b3c252cd3940907222d7dd041/{lat},{lng}"
-        print(baseurl)
+    baseurl = f"https://api.darksky.net/forecast/0974760b3c252cd3940907222d7dd041/{lat},{lng}"
+    print(baseurl)
+    api_data = requests.get(url=baseurl)
+    result_json = api_data.json()
+    print("fetch weather info successed")
+    #print(result_json)
+
+    while(result_json['currently'] is None):
+        time.sleep(5)
+        print("Refetch data")
         api_data = requests.get(url=baseurl)
         result_json = api_data.json()
         print(result_json)
 
-        while(result_json['currently'] is None):
-            time.sleep(5)
-            print("Refetch data")
-            api_data = requests.get(url=baseurl)
-            result_json = api_data.json()
-            print(result_json)
-
-        description = result_json['hourly']['data'][0]['summary']
-        return description
+    description = result_json['hourly']['data'][0]['summary']
+    return description
 
 def get_weather_with_location(lng, lat):
     now = str(datetime.datetime.now())
