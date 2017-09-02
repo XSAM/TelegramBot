@@ -49,10 +49,10 @@ def get_weather_description_with_darksky(lng, lat):
 
 def get_weather_with_location(lng, lat):
     now = str(datetime.datetime.now())
-    print(f'{}: get_weather'.format(now))
+    print('{}: get_weather'.format(now))
 
     description = get_weather_description_with_darksky(lng, lat)
-    print(f'get_weather_with_location() - description: {}'.format(description))
+    print('get_weather_with_location() - description: {}'.format(description))
     return description
 
 def get_weather():
