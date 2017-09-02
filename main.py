@@ -51,7 +51,7 @@ def set_location(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text=weather.get_weather())
 
 def main():
-    print(f"token_key: {os.getenv('TELEGRAM_BOT_TOKEN_KEY')}")
+    print("token_key: {}".format(os.getenv('TELEGRAM_BOT_TOKEN_KEY')))
     global token_key
 
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',\
