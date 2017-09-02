@@ -37,7 +37,7 @@ def location(bot, update):
     if update.message.chat_id != user_id:
         return
     bot.send_message(chat_id=update.message.chat_id,
-                    text=f"Current Location:\n {settings.data['lng']},{settings.data['lat']}")
+                    text = "Current Location:\n {},{}".format(settings.data['lng'], settings.data['lat']))
 
 def set_location(bot, update):
     # for personality
@@ -47,7 +47,7 @@ def set_location(bot, update):
     location = update.message.location
     settings.update_location(location.longitude, location.latitude)
     bot.send_message(chat_id=update.message.chat_id,
-                    text=f"Location Confirmed:\n {location.longitude},{location.latitude}")
+                    text="Location Confirmed:\n {},{}".format(location.longitude, location.latitude))
     bot.send_message(chat_id=update.message.chat_id, text=weather.get_weather())
 
 def main():

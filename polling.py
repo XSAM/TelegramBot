@@ -14,7 +14,7 @@ def init():
 def loop_thread():
     while 'True':
         now = str(datetime.datetime.now())
-        print(f'{now}: loop_thread awake')
+        print('{}: loop_thread awake'.format(now))
         result = weather.analyse_weather()
         if result is not None:
             bot.send_message(chat_id = 389135227, text = result)
